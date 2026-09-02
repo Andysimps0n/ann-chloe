@@ -1,15 +1,16 @@
 import { salon, bookingLinkProps } from '../data/salon'
+import Icon from './Icon'
 
 function InfoCard({ iconId, title, children }) {
   return (
     <article className="info-card">
       <div className="info-card-icon">
-        <svg className="icon" aria-hidden="true">
-          <use href={`/icons.svg#${iconId}`} />
-        </svg>
+        <Icon name={iconId} />
       </div>
-      <h3 className="info-card-title">{title}</h3>
-      <div className="info-card-body">{children}</div>
+      <div className="info-card-content">
+        <h3 className="info-card-title">{title}</h3>
+        <div className="info-card-body">{children}</div>
+      </div>
     </article>
   )
 }
@@ -23,7 +24,9 @@ function SalonInfo() {
 
         <div className="info-grid">
           <InfoCard iconId="location-icon" title="위치">
-            <p>{salon.address.line1}</p>
+            <a href={salon.mapsUrl} target="_blank" rel="noopener noreferrer">
+              {salon.address.line1}
+            </a>
             <p className="info-muted">{salon.address.line2}</p>
           </InfoCard>
 
@@ -38,7 +41,9 @@ function SalonInfo() {
           </InfoCard>
 
           <InfoCard iconId="phone-icon" title="연락처">
-            <p className="info-phone">{salon.phoneNumber}</p>
+            <a className="info-phone" href={salon.phoneHref}>
+              {salon.phoneNumber}
+            </a>
             <p className="info-muted">시술 중에는 전화 연결이 어려울 수 있어요.</p>
           </InfoCard>
         </div>
@@ -51,9 +56,7 @@ function SalonInfo() {
             </p>
           </div>
           <a {...bookingLinkProps} className="button button-inverse">
-            <svg className="icon" aria-hidden="true">
-              <use href="/icons.svg#calendar-icon" />
-            </svg>
+            <Icon name="calendar-icon" />
             예약하기
           </a>
         </div>

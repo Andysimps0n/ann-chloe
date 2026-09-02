@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 import PortfolioCard from './PortfolioCard'
 import PortfolioStyleDialog from './PortfolioStyleDialog'
+import Icon from './Icon'
 
 const PREVIOUS_CARD = -1
 const NEXT_CARD = 1
@@ -54,9 +55,7 @@ function PortfolioSection({ items }) {
                 aria-label="이전 스타일 보기"
                 onClick={() => scrollByOneCard(PREVIOUS_CARD)}
               >
-                <svg className="icon" aria-hidden="true">
-                  <use href="/icons.svg#chevron-left-icon" />
-                </svg>
+                <Icon name="chevron-left-icon" />
               </button>
               <button
                 type="button"
@@ -64,9 +63,7 @@ function PortfolioSection({ items }) {
                 aria-label="다음 스타일 보기"
                 onClick={() => scrollByOneCard(NEXT_CARD)}
               >
-                <svg className="icon" aria-hidden="true">
-                  <use href="/icons.svg#chevron-right-icon" />
-                </svg>
+                <Icon name="chevron-right-icon" />
               </button>
             </div>
           )}

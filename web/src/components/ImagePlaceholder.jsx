@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Icon from './Icon'
 
 // 매장/시술 사진 자리에 쓰는 이미지 컴포넌트.
 //
@@ -13,9 +14,7 @@ function ImagePlaceholder({ src, alt, label, className = '' }) {
   if (shouldShowPlaceholder) {
     return (
       <div className={`image-placeholder ${className}`} role="img" aria-label={alt}>
-        <svg className="image-placeholder-icon" aria-hidden="true">
-          <use href="/icons.svg#scissors-icon" />
-        </svg>
+        <Icon name="scissors-icon" className="image-placeholder-icon" />
         <span>{label}</span>
       </div>
     )

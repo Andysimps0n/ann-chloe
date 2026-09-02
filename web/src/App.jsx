@@ -22,12 +22,12 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <SalonInfo />
+        {/* <SalonInfo />
         <StyleFinder
           filters={styleFilters}
           onChange={setStyleFilters}
           matchCount={filteredPortfolioItems.length}
-        />
+        /> */}
         <PortfolioSection items={filteredPortfolioItems} />
       </main>
       <Footer />

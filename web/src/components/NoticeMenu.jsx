@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { notices } from '../data/notices'
+import Icon from './Icon'
 
 function formatPostedOn(dateString) {
   const [year, month] = dateString.split('-')
@@ -8,9 +9,22 @@ function formatPostedOn(dateString) {
 
 function NoticeMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  const [showUnreadCount, setShowUnreadCount] = useState(true)
   const menuRef = useRef(null)
   const panelId = useId()
   const noticeCount = notices.length
+  const hasUnreadNotices = showUnreadCount && noticeCount > 0
+  const bellLabel = hasUnreadNotices
+    ? `매장 알림 ${noticeCount}개`
+    : '매장 알림'
+
+  function toggleNoticePanel() {
+    const willOpen = !isOpen
+    if (willOpen) {
+      setShowUnreadCount(false)
+    }
+    setIsOpen(willOpen)
+  }
 
   useEffect(() => {
     if (!isOpen) return
@@ -38,15 +52,15 @@ function NoticeMenu() {
       <button
         type="button"
         className="notice-bell"
-        aria-label={`매장 알림 ${noticeCount}개`}
+        aria-label={bellLabel}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        onClick={() => setIsOpen((currentlyOpen) => !currentlyOpen)}
+        onClick={toggleNoticePanel}
       >
-        <svg className="icon" aria-hidden="true">
-          <use href="/icons.svg#bell-icon" />
-        </svg>
-        <span className="notice-bell-count">{noticeCount}</span>
+        <Icon name="bell-icon" />
+        {hasUnreadNotices && (
+          <span className="notice-bell-count">{noticeCount}</span>
+        )}
       </button>
 
       {isOpen && (
@@ -69,9 +83,7 @@ function NoticeMenu() {
               aria-label="알림 닫기"
               onClick={() => setIsOpen(false)}
             >
-              <svg className="icon" aria-hidden="true">
-                <use href="/icons.svg#close-icon" />
-              </svg>
+              <Icon name="close-icon" />
             </button>
           </div>
 

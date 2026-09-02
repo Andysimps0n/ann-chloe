@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { getBookingLinkProps } from '../data/salon'
 import ImagePlaceholder from './ImagePlaceholder'
+import Icon from './Icon'
 
 function PortfolioStyleDialog({ item, onClose }) {
   const closeButtonRef = useRef(null)
@@ -46,9 +47,7 @@ function PortfolioStyleDialog({ item, onClose }) {
           aria-label="닫기"
           onClick={onClose}
         >
-          <svg className="icon" aria-hidden="true">
-            <use href="/icons.svg#close-icon" />
-          </svg>
+          <Icon name="close-icon" />
         </button>
 
         <ImagePlaceholder
@@ -85,9 +84,7 @@ function PortfolioStyleDialog({ item, onClose }) {
               예상 시술 시간
             </h3>
             <p className="style-dialog-time">
-              <svg className="icon" aria-hidden="true">
-                <use href="/icons.svg#clock-icon" />
-              </svg>
+              <Icon name="clock-icon" />
               {item.estimatedTime}
             </p>
           </section>
@@ -109,9 +106,7 @@ function PortfolioStyleDialog({ item, onClose }) {
             {...getBookingLinkProps(item)}
             className="button button-primary button-large style-dialog-booking"
           >
-            <svg className="icon" aria-hidden="true">
-              <use href="/icons.svg#calendar-icon" />
-            </svg>
+            <Icon name="calendar-icon" />
             예약하기
           </a>
         </div>

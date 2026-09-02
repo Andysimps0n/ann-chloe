@@ -9,7 +9,9 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  height: var(--header-height);
+  box-sizing: border-box;
+  height: calc(var(--header-height) + var(--safe-top));
+  padding-top: var(--safe-top);
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -119,7 +121,7 @@
 
 .notice-backdrop {
   position: fixed;
-  top: var(--header-height);
+  top: calc(var(--header-height) + var(--safe-top));
   right: 0;
   bottom: 0;
   left: 0;
@@ -237,6 +239,10 @@
     display: none;
   }
 
+  .site-header-inner {
+    gap: 12px;
+  }
+
   .site-logo-name {
     font-size: 22px;
   }
@@ -245,13 +251,17 @@
     gap: 8px;
   }
 
+  .header-actions .button {
+    white-space: nowrap;
+  }
+
   .notice-panel {
     position: fixed;
-    top: calc(var(--header-height) + 8px);
-    right: 16px;
-    left: 16px;
+    top: calc(var(--header-height) + var(--safe-top) + 8px);
+    right: var(--page-gutter);
+    left: var(--page-gutter);
     width: auto;
-    max-height: calc(100vh - var(--header-height) - 24px);
+    max-height: calc(100dvh - var(--header-height) - var(--safe-top) - 24px);
   }
 }
 
@@ -293,15 +303,25 @@
   box-shadow: var(--shadow-card);
 }
 
+.hero-photo,
+.hero-gallery-photo,
+.portfolio-card-photo,
+.style-dialog-photo {
+  background:
+    radial-gradient(120% 100% at 15% 0%, rgba(88, 0, 129, 0.12), transparent 55%),
+    linear-gradient(155deg, #f7f1fb 0%, #ebe0f3 100%);
+}
+
 .hero-gallery {
   margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
 .hero-gallery-photo {
   width: 100%;
+  min-width: 0;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: var(--radius-m);
@@ -309,16 +329,30 @@
 
 @media (max-width: 900px) {
   .hero {
-    padding: 48px 0;
+    padding: 32px 0 40px;
   }
 
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 24px;
   }
 
   .hero-title {
-    font-size: 32px;
+    font-size: 30px;
+  }
+
+  .hero-description {
+    margin-top: 14px;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .button {
+    width: 100%;
   }
 
   .hero-photo {
@@ -326,114 +360,165 @@
   }
 
   .hero-gallery {
-    margin-top: 16px;
-    gap: 10px;
+    margin-top: 12px;
+    gap: 8px;
+  }
+
+  .hero-gallery .image-placeholder {
+    padding: 8px;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .hero-gallery .image-placeholder-icon {
+    width: 22px;
+    height: 22px;
   }
 }
 
 /* ── 매장 안내 (기본 정보) ─────────────────── */
 
 .salon-info {
-  padding: 88px 0;
+  padding: 40px 0;
   background: var(--color-surface);
 }
 
+.salon-info .eyebrow {
+  margin-bottom: 6px;
+}
+
+.salon-info .section-title {
+  font-size: 22px;
+}
+
 .info-grid {
-  margin-top: 40px;
+  margin-top: 16px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 10px;
 }
 
 .info-card {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 28px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
   background: #fff;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-l);
+  border-radius: var(--radius-m);
 }
 
 .info-card-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   background: var(--color-primary-tint);
   color: var(--color-primary);
 }
 
 .info-card-icon .icon {
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
+}
+
+.info-card-content {
+  min-width: 0;
 }
 
 .info-card-title {
-  font-size: 18px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .info-card-body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 15px;
+  gap: 2px;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .info-muted {
   color: var(--color-text-soft);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .hours-row {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
 }
 
 .info-phone {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-text-strong);
+  text-decoration: none;
+}
+
+.info-card-body a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  a.info-phone:hover,
+  .info-card-body a:hover {
+    color: var(--color-primary);
+  }
 }
 
 .booking-banner {
-  margin-top: 28px;
-  padding: 32px 40px;
+  margin-top: 12px;
+  padding: 16px 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 12px;
   background: linear-gradient(120deg, var(--color-primary) 0%, #7b22aa 100%);
-  border-radius: var(--radius-l);
+  border-radius: var(--radius-m);
   color: #fff;
 }
 
 .booking-banner-title {
   color: #fff;
-  font-size: 22px;
+  font-size: 16px;
 }
 
 .booking-banner-description {
-  margin-top: 6px;
+  margin-top: 2px;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 15px;
+  font-size: 13px;
 }
 
 @media (max-width: 900px) {
   .salon-info {
-    padding: 64px 0;
+    padding: 28px 0;
   }
 
   .info-grid {
     grid-template-columns: 1fr;
+    margin-top: 12px;
+    gap: 8px;
   }
 
   .booking-banner {
-    padding: 28px;
+    margin-top: 10px;
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .booking-banner .button {
+    width: 100%;
   }
 }
 
@@ -461,6 +546,7 @@
 }
 
 .style-finder-modes button {
+  flex: 1;
   padding: 10px 18px;
   border: none;
   border-radius: 999px;
@@ -644,14 +730,29 @@
 }
 
 @media (max-width: 768px) {
+  .style-finder {
+    padding: 48px 0 8px;
+  }
+
   .style-finder-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .style-finder-modes {
+    width: 100%;
+  }
+
+  .style-finder-modes button {
+    flex: 1;
+    padding: 12px 10px;
   }
 
   .style-filter-panel,
   .style-quiz {
-    padding: 22px 20px;
+    padding: 18px 16px;
   }
 
   .style-quiz-question {
@@ -660,6 +761,16 @@
 
   .style-quiz-options {
     grid-template-columns: 1fr;
+  }
+
+  .style-quiz-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .style-quiz-actions .button-primary {
+    width: 100%;
+    align-self: stretch;
   }
 }
 
@@ -733,31 +844,41 @@
 .portfolio-card {
   width: 100%;
   height: 100%;
-  padding: 0;
   display: flex;
   flex-direction: column;
   background: #fff;
-  color: inherit;
-  font: inherit;
   text-align: left;
   border: 1px solid var(--color-border);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: var(--shadow-card);
-  cursor: pointer;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
-.portfolio-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(88, 0, 129, 0.14);
+@media (hover: hover) {
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(88, 0, 129, 0.14);
+  }
+
+  .portfolio-card-cta-button:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-tint);
+  }
+}
+
+.portfolio-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
 }
 
 .portfolio-card-photo {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -765,7 +886,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 18px 20px 22px;
+  padding: 18px 20px 14px;
 }
 
 .portfolio-card-category {
@@ -794,6 +915,25 @@
 .portfolio-card-description {
   font-size: 14px;
   color: var(--color-text-soft);
+}
+
+.portfolio-card-cta {
+  margin-top: auto;
+  padding: 0 20px 16px;
+}
+
+.portfolio-card-cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-soft);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 /* ── 스타일 상세 팝업 ──────────────────────── */
@@ -928,26 +1068,35 @@
 
 @media (max-width: 768px) {
   .style-dialog-backdrop {
-    padding: 12px;
+    padding: 0;
     align-items: flex-end;
   }
 
   .style-dialog {
     width: 100%;
-    max-height: 92vh;
-    border-radius: 24px 24px 16px 16px;
+    max-height: min(92dvh, 100%);
+    border-radius: 24px 24px 0 0;
+  }
+
+  .style-dialog-body {
+    padding: 20px 16px calc(20px + var(--safe-bottom));
+  }
+
+  .style-dialog-photo {
+    aspect-ratio: 16 / 10;
+    max-height: 32vh;
   }
 }
 
 @media (max-width: 768px) {
   .portfolio {
-    padding: 64px 0 72px;
+    padding: 48px 0 56px;
   }
 
   .portfolio-header {
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   /* 모바일에서는 버튼 대신 터치 스와이프로 탐색 */
@@ -955,9 +1104,16 @@
     display: none;
   }
 
+  /* 화면 가장자리까지 이어져 다음 카드가 살짝 보이게 합니다 */
+  .portfolio-track {
+    margin-inline: calc(var(--page-gutter) * -1);
+    padding-inline: var(--page-gutter);
+    scroll-padding-inline: var(--page-gutter);
+  }
+
   /* 한 장 + 다음 카드 일부가 보이는 너비 */
   .portfolio-track > li {
-    width: min(76vw, 300px);
+    width: min(78vw, 300px);
   }
 }
 
@@ -1008,9 +1164,39 @@
   margin-left: auto;
 }
 
+.footer-meta-inner a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .footer-meta-inner a:hover {
+    color: var(--color-primary);
+  }
+}
+
 @media (max-width: 768px) {
   .footer-cta {
-    padding: 64px 0 56px;
+    padding: 48px 0 40px;
+  }
+
+  .footer-cta .button {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .footer-meta {
+    padding: 20px 0 calc(20px + var(--safe-bottom));
+  }
+
+  .footer-meta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-brand img {
+    height: 40px;
   }
 
   .footer-copyright {

@@ -6,8 +6,6 @@ import {
   hasActiveStyleFilters,
   styleOptions,
 } from '../data/styleFilters'
-import { handleHashLinkClick } from '../scrollToHash'
-
 const MODE_CHIPS = 'chips'
 const MODE_QUIZ = 'quiz'
 
@@ -168,7 +166,6 @@ function StyleFinder({ filters, onChange, matchCount }) {
                 <a
                   href="#portfolio"
                   className="button button-primary button-small"
-                  onClick={handleHashLinkClick}
                 >
                   맞는 스타일 {matchCount}개 보기
                 </a>

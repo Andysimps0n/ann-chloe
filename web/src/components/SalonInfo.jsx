@@ -1,4 +1,4 @@
-import { salon } from '../data/salon'
+import { salon, bookingLinkProps } from '../data/salon'
 
 function InfoCard({ iconId, title, children }) {
   return (
@@ -34,6 +34,7 @@ function SalonInfo() {
                 <span>{slot.time}</span>
               </p>
             ))}
+            <p className="info-muted">{salon.hoursNote}</p>
           </InfoCard>
 
           <InfoCard iconId="phone-icon" title="연락처">
@@ -49,7 +50,7 @@ function SalonInfo() {
               원하는 스타일을 말씀해 주시면 꼭 맞는 디자이너를 연결해 드립니다.
             </p>
           </div>
-          <a href={salon.bookingUrl} className="button button-inverse">
+          <a {...bookingLinkProps} className="button button-inverse">
             <svg className="icon" aria-hidden="true">
               <use href="/icons.svg#calendar-icon" />
             </svg>

@@ -1,8 +1,13 @@
 import ImagePlaceholder from './ImagePlaceholder'
 
-function PortfolioCard({ item }) {
+function PortfolioCard({ item, onOpen }) {
   return (
-    <article className="portfolio-card">
+    <button
+      type="button"
+      className="portfolio-card"
+      onClick={(event) => onOpen(item, event.currentTarget)}
+      aria-haspopup="dialog"
+    >
       <ImagePlaceholder
         className="portfolio-card-photo"
         src={item.imageSrc}
@@ -11,11 +16,11 @@ function PortfolioCard({ item }) {
       />
       <div className="portfolio-card-info">
         <span className="portfolio-card-category">{item.category}</span>
-        <h3 className="portfolio-card-style">{item.styleName}</h3>
-        <p className="portfolio-card-designer">{item.designer}</p>
-        <p className="portfolio-card-description">{item.description}</p>
+        <span className="portfolio-card-style">{item.styleName}</span>
+        <span className="portfolio-card-designer">{item.designer}</span>
+        <span className="portfolio-card-description">{item.description}</span>
       </div>
-    </article>
+    </button>
   )
 }
 

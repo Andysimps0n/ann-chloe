@@ -1,12 +1,24 @@
-import { useRef } from 'react'
-import { portfolioItems } from '../data/portfolio'
+import { useCallback, useRef, useState } from 'react'
 import PortfolioCard from './PortfolioCard'
+import PortfolioStyleDialog from './PortfolioStyleDialog'
 
 const PREVIOUS_CARD = -1
 const NEXT_CARD = 1
 
-function PortfolioSection() {
+function PortfolioSection({ items }) {
   const trackRef = useRef(null)
+  const lastOpenedCardRef = useRef(null)
+  const [selectedItem, setSelectedItem] = useState(null)
+
+  function openStyleDetail(item, cardButton) {
+    lastOpenedCardRef.current = cardButton
+    setSelectedItem(item)
+  }
+
+  const closeStyleDetail = useCallback(() => {
+    setSelectedItem(null)
+    lastOpenedCardRef.current?.focus()
+  }, [])
 
   // 카드 한 장 너비만큼 캐러셀을 좌우로 이동시킵니다.
   function scrollByOneCard(direction) {
@@ -29,49 +41,61 @@ function PortfolioSection() {
             <p className="eyebrow">Portfolio</p>
             <h2 className="section-title">앤끌로에가 만든 스타일</h2>
             <p className="section-description">
-              디자이너들의 실제 시술 결과입니다. 마음에 드는 스타일을 찾았다면
-              예약 후 그대로 보여 주세요.
+              디자이너들의 실제 시술 결과입니다. 위에서 기장과 원하는 시술을
+              고르면 맞는 스타일만 남습니다.
             </p>
           </div>
 
-          <div className="portfolio-controls">
-            <button
-              type="button"
-              className="carousel-button"
-              aria-label="이전 스타일 보기"
-              onClick={() => scrollByOneCard(PREVIOUS_CARD)}
-            >
-              <svg className="icon" aria-hidden="true">
-                <use href="/icons.svg#chevron-left-icon" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              className="carousel-button"
-              aria-label="다음 스타일 보기"
-              onClick={() => scrollByOneCard(NEXT_CARD)}
-            >
-              <svg className="icon" aria-hidden="true">
-                <use href="/icons.svg#chevron-right-icon" />
-              </svg>
-            </button>
-          </div>
+          {items.length > 1 && (
+            <div className="portfolio-controls">
+              <button
+                type="button"
+                className="carousel-button"
+                aria-label="이전 스타일 보기"
+                onClick={() => scrollByOneCard(PREVIOUS_CARD)}
+              >
+                <svg className="icon" aria-hidden="true">
+                  <use href="/icons.svg#chevron-left-icon" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="carousel-button"
+                aria-label="다음 스타일 보기"
+                onClick={() => scrollByOneCard(NEXT_CARD)}
+              >
+                <svg className="icon" aria-hidden="true">
+                  <use href="/icons.svg#chevron-right-icon" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* tabIndex로 포커스를 받을 수 있어 키보드 방향키로도 스크롤됩니다 */}
-        <ul
-          ref={trackRef}
-          className="portfolio-track"
-          tabIndex={0}
-          aria-label="시술 스타일 목록"
-        >
-          {portfolioItems.map((item) => (
-            <li key={item.id}>
-              <PortfolioCard item={item} />
-            </li>
-          ))}
-        </ul>
+        {items.length === 0 ? (
+          <p className="portfolio-empty">
+            선택한 조건에 맞는 스타일이 아직 없습니다. 기장이나 시술을 조금 넓혀
+            다시 찾아 보세요.
+          </p>
+        ) : (
+          <ul
+            ref={trackRef}
+            className="portfolio-track"
+            tabIndex={0}
+            aria-label="시술 스타일 목록"
+          >
+            {items.map((item) => (
+              <li key={item.id}>
+                <PortfolioCard item={item} onOpen={openStyleDetail} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+
+      {selectedItem && (
+        <PortfolioStyleDialog item={selectedItem} onClose={closeStyleDetail} />
+      )}
     </section>
   )
 }

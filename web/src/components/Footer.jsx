@@ -1,4 +1,4 @@
-import { salon } from '../data/salon'
+import { salon, bookingLinkProps } from '../data/salon'
 
 function Footer() {
   return (
@@ -9,7 +9,7 @@ function Footer() {
         <p className="section-description">
           원하는 스타일이 있다면 지금 예약하고 편하게 상담받아 보세요.
         </p>
-        <a href={salon.bookingUrl} className="button button-primary button-large">
+        <a {...bookingLinkProps} className="button button-primary button-large">
           <svg className="icon" aria-hidden="true">
             <use href="/icons.svg#calendar-icon" />
           </svg>
@@ -20,9 +20,11 @@ function Footer() {
       <div className="footer-meta">
         <div className="container footer-meta-inner">
           <p className="footer-brand">
-            {salon.name} {salon.koreanName}
+            <img src="/icon.png" alt={`${salon.name} ${salon.koreanName}`} />
           </p>
-          <p>{salon.address.line1}</p>
+          <p>
+            {salon.address.line1} {salon.address.line2}
+          </p>
           <p>{salon.phoneNumber}</p>
           <p className="footer-copyright">
             © {new Date().getFullYear()} {salon.name} Hair. All rights reserved.

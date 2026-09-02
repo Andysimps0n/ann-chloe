@@ -34,7 +34,7 @@ const bookingHrefs = await desktop.$$eval('a', (links) =>
   links.filter((l) => l.textContent.includes('예약하기')).map((l) => l.getAttribute('href')),
 )
 check('예약 버튼 4개(헤더/히어로/배너/푸터)', bookingHrefs.length === 4, `${bookingHrefs.length}개`)
-check('예약 링크 tel: 로 통일', bookingHrefs.every((href) => href === 'tel:02-1234-5678'))
+check('예약 링크 네이버 예약으로 통일', bookingHrefs.every((href) => href === 'https://booking.naver.com/booking/13/bizes/830277?lang=ko'))
 
 const cardCount = await desktop.locator('.portfolio-card').count()
 check('포트폴리오 카드 8장', cardCount === 8, `${cardCount}장`)

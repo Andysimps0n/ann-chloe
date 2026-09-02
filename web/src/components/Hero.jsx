@@ -1,4 +1,5 @@
-import { salon } from '../data/salon'
+import { salon, bookingLinkProps } from '../data/salon'
+import { handleHashLinkClick } from '../scrollToHash'
 import ImagePlaceholder from './ImagePlaceholder'
 
 function Hero() {
@@ -11,13 +12,17 @@ function Hero() {
           <p className="hero-description">{salon.brandMessage}</p>
 
           <div className="hero-actions">
-            <a href={salon.bookingUrl} className="button button-primary">
+            <a {...bookingLinkProps} className="button button-primary">
               <svg className="icon" aria-hidden="true">
                 <use href="/icons.svg#calendar-icon" />
               </svg>
               예약하기
             </a>
-            <a href="#portfolio" className="button button-ghost">
+            <a
+              href="#portfolio"
+              className="button button-ghost button-scroll-down"
+              onClick={handleHashLinkClick}
+            >
               시술 스타일 보러 가기
               <svg className="icon" aria-hidden="true">
                 <use href="/icons.svg#arrow-down-icon" />

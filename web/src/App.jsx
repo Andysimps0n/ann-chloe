@@ -1,35 +1,54 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import SalonInfo from './components/SalonInfo'
 import StyleFinder from './components/StyleFinder'
 import PortfolioSection from './components/PortfolioSection'
+import DesignerMenusPage from './components/DesignerMenusPage'
 import Footer from './components/Footer'
 import { portfolioItems } from './data/portfolio'
 import { emptyStyleFilters, filterPortfolioItems } from './data/styleFilters'
+import { scrollToHashIfPresent } from './scrollToHash'
 
-// 페이지 흐름: 브랜드 → 기본 정보 → 스타일 찾기 → 시술 포트폴리오 → 예약 CTA
-function App() {
+const MENUS_PAGE_PATH = '/menus'
+
+function isMenusPage() {
+  return window.location.pathname.replace(/\/$/, '') === MENUS_PAGE_PATH
+}
+
+function HomePage() {
   const [styleFilters, setStyleFilters] = useState(emptyStyleFilters)
   const filteredPortfolioItems = useMemo(
     () => filterPortfolioItems(portfolioItems, styleFilters),
     [styleFilters],
   )
 
+  useEffect(() => {
+    scrollToHashIfPresent()
+  }, [])
+
+  return (
+    <>
+      <Hero />
+      {/* <SalonInfo /> */}
+      {/* <StyleFinder
+        filters={styleFilters}
+        onChange={setStyleFilters}
+        matchCount={filteredPortfolioItems.length}
+      /> */}
+      <PortfolioSection items={filteredPortfolioItems} />
+    </>
+  )
+}
+
+function App() {
+  const showMenusPage = isMenusPage()
+
   return (
     <>
       <Header />
-      <main>
-        <Hero />
-        {/* <SalonInfo />
-        <StyleFinder
-          filters={styleFilters}
-          onChange={setStyleFilters}
-          matchCount={filteredPortfolioItems.length}
-        /> */}
-        <PortfolioSection items={filteredPortfolioItems} />
-      </main>
+      <main>{showMenusPage ? <DesignerMenusPage /> : <HomePage />}</main>
       <Footer />
     </>
   )

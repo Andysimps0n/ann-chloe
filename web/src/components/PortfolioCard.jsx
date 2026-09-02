@@ -1,12 +1,13 @@
 import ImagePlaceholder from './ImagePlaceholder'
 
 function PortfolioCard({ item, onOpen }) {
-  function openDetail(event) {
-    onOpen(item, event.currentTarget)
-  }
-
   return (
-    <article className="portfolio-card">
+    <button
+      type="button"
+      className="portfolio-card"
+      onClick={(event) => onOpen(item, event.currentTarget)}
+      aria-haspopup="dialog"
+    >
       <div className="portfolio-card-media">
         <ImagePlaceholder
           className="portfolio-card-photo"
@@ -21,17 +22,8 @@ function PortfolioCard({ item, onOpen }) {
         <span className="portfolio-card-designer">{item.designer}</span>
         <span className="portfolio-card-description">{item.description}</span>
       </div>
-      <div className="portfolio-card-cta">
-        <button
-          type="button"
-          className="portfolio-card-cta-button"
-          onClick={openDetail}
-          aria-haspopup="dialog"
-        >
-          자세히
-        </button>
-      </div>
-    </article>
+      <span className="portfolio-card-cta">자세히</span>
+    </button>
   )
 }
 

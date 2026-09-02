@@ -45,6 +45,9 @@ function PortfolioSection({ items }) {
               디자이너들의 실제 시술 결과입니다. 위에서 기장과 원하는 시술을
               고르면 맞는 스타일만 남습니다.
             </p>
+            <a href="/menus" className="portfolio-view-all">
+              전체보기
+            </a>
           </div>
 
           {items.length > 1 && (

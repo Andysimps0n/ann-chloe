@@ -9,6 +9,16 @@ export function bindHashLinkClicks() {
   document.addEventListener('click', handleDocumentClick, true)
 }
 
+export function scrollToHashIfPresent() {
+  const href = window.location.hash
+  if (!href || href.length < 2) return
+
+  const section = document.querySelector(href)
+  if (!section) return
+
+  scrollToSection(section, href)
+}
+
 function handleDocumentClick(event) {
   if (event.defaultPrevented) return
   if (event.button !== 0) return

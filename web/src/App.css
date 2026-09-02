@@ -1,0 +1,439 @@
+/* ============================================
+   섹션별 레이아웃 스타일
+   (디자인 토큰과 공통 스타일은 index.css 참고)
+   ============================================ */
+
+/* ── 헤더 ──────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--header-height);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.site-logo-korean {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-soft);
+}
+
+.site-nav {
+  display: flex;
+  gap: 28px;
+}
+
+.site-nav a {
+  color: var(--color-text-strong);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .site-nav {
+    display: none;
+  }
+
+  .site-logo {
+    font-size: 19px;
+  }
+}
+
+/* ── 히어로 (브랜딩 영역) ──────────────────── */
+
+.hero {
+  padding: 72px 0 64px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 48px;
+  letter-spacing: -0.02em;
+}
+
+.hero-description {
+  margin-top: 20px;
+  max-width: 480px;
+}
+
+.hero-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-card);
+}
+
+.hero-gallery {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.hero-gallery-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: 48px 0;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-gallery {
+    margin-top: 16px;
+    gap: 10px;
+  }
+}
+
+/* ── 매장 안내 (기본 정보) ─────────────────── */
+
+.salon-info {
+  padding: 88px 0;
+  background: var(--color-surface);
+}
+
+.info-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-l);
+}
+
+.info-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+}
+
+.info-card-icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.info-card-title {
+  font-size: 18px;
+}
+
+.info-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.info-muted {
+  color: var(--color-text-soft);
+  font-size: 14px;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.info-phone {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-strong);
+}
+
+.booking-banner {
+  margin-top: 28px;
+  padding: 32px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: linear-gradient(120deg, var(--color-primary) 0%, #7b22aa 100%);
+  border-radius: var(--radius-l);
+  color: #fff;
+}
+
+.booking-banner-title {
+  color: #fff;
+  font-size: 22px;
+}
+
+.booking-banner-description {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+}
+
+@media (max-width: 900px) {
+  .salon-info {
+    padding: 64px 0;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-banner {
+    padding: 28px;
+  }
+}
+
+/* ── 디자인 포트폴리오 ─────────────────────── */
+
+.portfolio {
+  padding: 88px 0 96px;
+}
+
+.portfolio-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.portfolio-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.carousel-button:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* 가로 스크롤 + 스냅으로 만든 캐러셀 트랙 */
+.portfolio-track {
+  list-style: none;
+  margin: 0;
+  padding: 4px 4px 28px;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.portfolio-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* 데스크톱에서 카드 3장 + 다음 카드 일부가 보이는 너비 */
+.portfolio-track > li {
+  flex: 0 0 auto;
+  width: clamp(250px, 24vw, 310px);
+  scroll-snap-align: start;
+}
+
+.portfolio-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.portfolio-card-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.portfolio-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px 22px;
+}
+
+.portfolio-card-category {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.portfolio-card-style {
+  margin-top: 4px;
+  font-size: 20px;
+}
+
+.portfolio-card-designer {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.portfolio-card-description {
+  font-size: 14px;
+  color: var(--color-text-soft);
+}
+
+@media (max-width: 768px) {
+  .portfolio {
+    padding: 64px 0 72px;
+  }
+
+  .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  /* 모바일에서는 버튼 대신 터치 스와이프로 탐색 */
+  .portfolio-controls {
+    display: none;
+  }
+
+  /* 한 장 + 다음 카드 일부가 보이는 너비 */
+  .portfolio-track > li {
+    width: min(76vw, 300px);
+  }
+}
+
+/* ── 푸터 (마지막 예약 CTA) ────────────────── */
+
+.footer-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 96px 0 72px;
+  text-align: center;
+}
+
+.footer-cta .section-description {
+  max-width: 460px;
+}
+
+.footer-cta .button {
+  margin-top: 32px;
+}
+
+.footer-meta {
+  border-top: 1px solid var(--color-border);
+  padding: 28px 0;
+}
+
+.footer-meta-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  font-size: 14px;
+  color: var(--color-text-soft);
+}
+
+.footer-brand {
+  font-weight: 700;
+  color: var(--color-text-strong);
+}
+
+.footer-copyright {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .footer-cta {
+    padding: 64px 0 56px;
+  }
+
+  .footer-copyright {
+    margin-left: 0;
+  }
+}
